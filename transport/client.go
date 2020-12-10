@@ -57,19 +57,19 @@ var (
 var (
 	clientID = EndPointID(0)
 )
-
+//屏蔽了底层是tcp/udp or other
 type client struct {
 	ClientOptions
 
 	// endpoint ID
-	endPointID EndPointID
+	endPointID EndPointID //全局自增
 
 	// net
 	sync.Mutex
 	endPointType EndPointType
 
 	newSession NewSessionCallback
-	ssMap      map[Session]struct{}
+	ssMap      map[Session]struct{} //连接池
 
 	sync.Once
 	done chan struct{}

@@ -86,7 +86,8 @@ func initProfiling() {
 		log.Info(http.ListenAndServe(addr, nil))
 	}()
 }
-
+//1、根据配置设置原始的tcpCoon和session todo 研究配置的具体含义
+//2、在这引入codec、事件处理、携程池
 func newSession(session getty.Session) error {
 	var (
 		ok      bool
@@ -111,15 +112,15 @@ func newSession(session getty.Session) error {
 
 	session.SetName(conf.GettySessionParam.SessionName)
 	session.SetMaxMsgLen(conf.GettySessionParam.MaxMsgLen)
-	session.SetPkgHandler(echoPkgHandler)
-	session.SetEventListener(echoMsgHandler)
+	session.SetPkgHandler(echoPkgHandler) // 包的编解码，业务方实现
+	session.SetEventListener(echoMsgHandler) //事件处理,业务放处理
 	session.SetRQLen(conf.GettySessionParam.PkgRQSize)
 	session.SetWQLen(conf.GettySessionParam.PkgWQSize)
 	session.SetReadTimeout(conf.GettySessionParam.tcpReadTimeout)
 	session.SetWriteTimeout(conf.GettySessionParam.tcpWriteTimeout)
 	session.SetCronPeriod((int)(conf.heartbeatPeriod.Nanoseconds() / 1e6))
 	session.SetWaitTime(conf.GettySessionParam.waitTimeout)
-	session.SetTaskPool(taskPool)
+	session.SetTaskPool(taskPool) //引入全局的goroutine池
 	log.Debug("client new session:%s\n", session.Stat())
 
 	return nil

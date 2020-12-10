@@ -145,7 +145,7 @@ var (
 	ErrSessionBlocked = jerrors.New("session Full Blocked")
 	ErrNullPeerAddr   = jerrors.New("peer address is nil")
 )
-
+//对conn的封装
 type Session interface {
 	Connection
 	Reset()

@@ -76,7 +76,7 @@ type ClientOption func(*ClientOptions)
 
 type ClientOptions struct {
 	addr              string
-	number            int
+	number            int //连接池大小，来自配置间
 	reconnectInterval int // reConnect Interval
 
 	// the cert file of wss server which may contain server domain, server ip, the starting effective date, effective
