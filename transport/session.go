@@ -104,10 +104,10 @@ type session struct {
 	done chan struct{}
 
 	// attribute
-	attrs *gxcontext.ValuesContext
+	attrs *gxcontext.ValuesContext //关联了所属的client, key是常量sessionClientKey
 
 	// goroutines sync
-	grNum int32
+	grNum int32 //纪录全局goroutines数量
 	// read goroutines done signal
 	rDone chan struct{}
 	lock  sync.RWMutex

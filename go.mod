@@ -42,3 +42,4 @@ require (
 )
 
 replace github.com/AlexStocks/getty => github.com/ziyoumeng/getty v1.2.10
+
